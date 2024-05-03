@@ -15,9 +15,9 @@ export class RegisterController {
 
       const { email, name, password } = registerBodySchema.parse(request.body)
 
-        const registerUseCase = makeRegisterUseCase()
-    
-        await registerUseCase.execute({ name, email, password })
+      const registerUseCase = makeRegisterUseCase()
+  
+      await registerUseCase.execute({ name, email, password })
     } catch (error) {
       if (error instanceof UserAlreadyExistsError) {
         return response.status(409).send({ message: error.message })
