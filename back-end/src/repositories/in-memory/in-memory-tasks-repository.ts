@@ -8,7 +8,7 @@ export class InMemoryTasksRepository implements TasksRepository {
 
   async create(task: Prisma.TaskUncheckedCreateInput) {
     const newTask = {
-      id: randomUUID(),
+      id: task.id ?? randomUUID(),
       title: task.title,
       is_completed: false,
       user_id: task.user_id
@@ -23,5 +23,21 @@ export class InMemoryTasksRepository implements TasksRepository {
     const tasks = this.tasks.filter(task => task.user_id === userId)
 
     return tasks
+  }
+
+  async findById(taskId: string) {
+    const task = this.tasks.find(task => task.id === taskId)
+
+    if (!task) return null
+
+    return task
+  }
+
+  async delete(taskId: string) {
+    const task = this.tasks.findIndex(task => task.id === taskId)
+
+    if (task !== -1) {
+      this.tasks.splice(task, 1)
+    }
   }
 }
