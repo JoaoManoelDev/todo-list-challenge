@@ -1,9 +1,9 @@
 import { Router } from "express"
 
-import { TaskController } from "../controllers/task"
+import { CreateTaskController } from "../controllers/tasks/create"
 
 export const taskRoutes = Router()
 
-const taskController = new TaskController()
+const createTaskController = new CreateTaskController()
 
-taskRoutes.post("/", taskController.handler)
+taskRoutes.post("/", createTaskController.handler)

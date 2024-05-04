@@ -3,7 +3,7 @@ import { z } from "zod"
 
 import { makeCreateTaskUseCase } from "@/use-cases/factories/make-create-task-use-case"
 
-export class TaskController {
+export class CreateTaskController {
   async handler(request: Request, response: Response, next: NextFunction) {
     try {
       const userId = request.user.id
