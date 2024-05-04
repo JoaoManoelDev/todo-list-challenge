@@ -1,7 +1,7 @@
 import { Router } from "express"
 
-import { RegisterController } from "../controllers/register"
-import { AuthenticateController } from "../controllers/authenticate"
+import { RegisterController } from "../controllers/auth/register"
+import { AuthenticateController } from "../controllers/auth/authenticate"
 
 export const authRoutes = Router()
 
