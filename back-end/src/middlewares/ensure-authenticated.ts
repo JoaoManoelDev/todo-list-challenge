@@ -1,5 +1,5 @@
 import { NextFunction, Request, Response } from "express"
-import { verify } from "jsonwebtoken"
+import { JsonWebTokenError, verify } from "jsonwebtoken"
 
 import { env } from "@/env"
 import { InvalidTokenError } from "@/errors/invalid-token-error"
@@ -33,10 +33,16 @@ export async function ensureAuthenticated(
       name: userName
     }
 
-    next()
+    return next()
   } catch(error) {
     if (error instanceof InvalidTokenError) {
       return response.status(401).send({ message: error.message })
     }
+
+    if (error instanceof JsonWebTokenError) {
+      return response.status(401).send({ message: "Jwt malformed." })
+    }
+
+    return next(error)
   }
 }
