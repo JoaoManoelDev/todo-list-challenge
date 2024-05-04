@@ -1,4 +1,4 @@
-import { Prisma } from "@prisma/client"
+import { Prisma, Task } from "@prisma/client"
 
 import { TasksRepository } from "../tasks-repository"
 import { prisma } from "@/lib/prisma"
@@ -30,6 +30,17 @@ export class PrismaTasksRepository implements TasksRepository {
     })
     
     if (!task) return null
+
+    return task
+  }
+
+  async save(newTask: Task) {
+    const task = await prisma.task.update({
+      where: {
+        id: newTask.id
+      },
+      data: newTask
+    })
 
     return task
   }

@@ -33,11 +33,22 @@ export class InMemoryTasksRepository implements TasksRepository {
     return task
   }
 
-  async delete(taskId: string) {
-    const task = this.tasks.findIndex(task => task.id === taskId)
+  async save(newTask: Task) {
+    const taskIndex = this.tasks
+      .findIndex(task => task.id === newTask.id)
 
-    if (task !== -1) {
-      this.tasks.splice(task, 1)
+    if (taskIndex >= 0) {
+      this.tasks[taskIndex] = newTask
+    }
+
+    return newTask
+  }
+
+  async delete(taskId: string) {
+    const taskIndex = this.tasks.findIndex(task => task.id === taskId)
+
+    if (taskIndex !== -1) {
+      this.tasks.splice(taskIndex, 1)
     }
   }
 }
