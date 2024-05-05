@@ -1,18 +1,18 @@
 import { NextFunction, Request, Response } from "express"
 
-import { makeMarkTaskCompleteTaskUseCase } from "@/use-cases/factories/make-mark-task-complete-use-case"
+import { makeToggleTaskCompletedTaskUseCase } from "@/use-cases/factories/make-toggle-task-completed-use-case"
 import { ResourceNotFoundError } from "@/use-cases/errors/resource-not-found-error"
 
-export class MarkTaskCompleteController {
+export class ToggleTaskCompletedController {
   async handler(request: Request, response: Response, next: NextFunction) {
     try {
       const taskId = request.params.id
 
       console.log("TASK ID", taskId)
 
-      const markTaskCompleteUseCase = makeMarkTaskCompleteTaskUseCase()
+      const toggleTaskCompletedUseCase = makeToggleTaskCompletedTaskUseCase()
 
-      const { task } = await markTaskCompleteUseCase.execute({ taskId })
+      const { task } = await toggleTaskCompletedUseCase.execute({ taskId })
     
       return response.status(200).json({ task })
     } catch (error) {

@@ -3,29 +3,29 @@ import { Task } from "@prisma/client"
 import { TasksRepository } from "@/repositories/tasks-repository"
 import { ResourceNotFoundError } from "./errors/resource-not-found-error"
 
-interface MarkTaskCompleteUseCaseRequest {
+interface ToggleTaskCompletedRequest {
   taskId: string
 }
 
-interface MarkTaskCompleteUseCaseResponse {
+interface ToggleTaskCompletedResponse {
   task: Task
 }
 
-export class MarkTaskCompleteUseCase {
+export class ToggleTaskCompleted {
   constructor(
     private tasksRepository: TasksRepository
   ) {}
 
   async execute({
     taskId
-  }: MarkTaskCompleteUseCaseRequest): Promise<MarkTaskCompleteUseCaseResponse> {
+  }: ToggleTaskCompletedRequest): Promise<ToggleTaskCompletedResponse> {
     const task = await this.tasksRepository.findById(taskId)
 
     if (!task) {
       throw new ResourceNotFoundError()
     }
 
-    task.is_completed = true
+    task.is_completed = !task.is_completed
 
     await this.tasksRepository.save(task)
 
