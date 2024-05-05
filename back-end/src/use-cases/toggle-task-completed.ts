@@ -11,7 +11,7 @@ interface ToggleTaskCompletedResponse {
   task: Task
 }
 
-export class ToggleTaskCompleted {
+export class ToggleTaskCompletedUseCase {
   constructor(
     private tasksRepository: TasksRepository
   ) {}
