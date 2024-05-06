@@ -19,10 +19,10 @@ const SignIn = () => {
       <div className="w-[350px] flex flex-col justify-center gap-6">
         <div className="flex flex-col gap-2 text-center">
           <h1 className="text-2xl font-semibold tracking-tighter">
-            Criar conta grátis
+            Faça login para continuar 
           </h1>
           <p className="text-sm text-muted-foreground">
-            Organize suas tarefas de forma fácil
+            Bem-vindo de volta
           </p>
         </div>
 
