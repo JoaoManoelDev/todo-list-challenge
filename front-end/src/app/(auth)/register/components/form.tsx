@@ -5,6 +5,7 @@ import { toast } from "sonner"
 import { z } from "zod"
 import { useRouter } from "next/navigation"
 import { AxiosError } from "axios"
+import { zodResolver } from "@hookform/resolvers/zod"
 
 import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
@@ -12,9 +13,9 @@ import { Label } from "@/components/ui/label"
 import { http } from "@/lib/axios"
 
 const registerForm = z.object({
-  name: z.string(),
-  email: z.string().email(),
-  password: z.string(),
+  name: z.string().min(1, "O nome não pode estar vazio."),
+  email: z.string().email("Digite um e-mail válido."),
+  password: z.string().min(6, "A senha deve conter no mínimo 6 caracteres."),
 })
 
 type RegisterForm = z.infer<typeof registerForm>
@@ -26,8 +27,10 @@ export const Form = () => {
   const {
     register,
     handleSubmit,
-    formState: { isSubmitting }
-  } = useForm<RegisterForm>()
+    formState: { isSubmitting, errors }
+  } = useForm<RegisterForm>({
+    resolver: zodResolver(registerForm),
+  })
 
   const handleRegister = async (data: RegisterForm) => {
     try {
@@ -36,10 +39,10 @@ export const Form = () => {
       toast.success("Cadastro finalizado com sucesso.", {
         action: {
           label: "Login",
-          onClick: () => router.push("/sign-in")
+          onClick: () => router.push(`/sign-in?email=${data.email}`)
         }
       })
-  
+
     } catch (error) {
       console.log("catch error", error instanceof AxiosError)
 
@@ -48,11 +51,11 @@ export const Form = () => {
         if (error.request.status === 409) toast.error("E-mail já cadastrado.");
         if (error.request.status === 400) toast.error("Dados inválidos. Por favor, verifique os dados informados")
       } else {
-         toast.error("Erro ao cadastrar usuário. Por favor, tente novamente mais tarde.")
+        toast.error("Erro ao cadastrar usuário. Por favor, tente novamente mais tarde.")
       }
     }
   }
-  
+
   return (
     <form className="space-y-4" onSubmit={handleSubmit(handleRegister)}>
       <div className="space-y-2">
@@ -63,6 +66,10 @@ export const Form = () => {
           type="text"
           disabled={isSubmitting}
         />
+        {errors.name &&
+          <p className="text-sm text-red-500">
+            {errors.name.message}
+          </p>}
       </div>
 
       <div className="space-y-2">
@@ -73,6 +80,10 @@ export const Form = () => {
           type="email"
           disabled={isSubmitting}
         />
+        {errors.email &&
+          <p className="text-sm text-red-500">
+            {errors.email.message}
+          </p>}
       </div>
 
       <div className="space-y-2">
@@ -83,6 +94,10 @@ export const Form = () => {
           type="password"
           disabled={isSubmitting}
         />
+        {errors.password &&
+          <p className="text-sm text-red-500">
+            {errors.password.message}
+          </p>}
       </div>
 
       <Button
