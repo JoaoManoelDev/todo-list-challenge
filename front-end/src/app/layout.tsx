@@ -3,6 +3,7 @@ import type { Metadata } from "next"
 import "@/styles/globals.css"
 import { cn } from "@/lib/utils"
 import { fontInter, montserrat } from "@/styles/fonts"
+import { Toaster } from "sonner"
 
 export const metadata: Metadata = {
   title: "Todo App",
@@ -17,11 +18,12 @@ const RootLayout = ({
   return (
     <html lang="en">
       <body className={cn(
-          "min-h-screen font-inter antialiased",
-          fontInter.variable,
-          montserrat.variable
-        )}
+        "min-h-screen font-inter antialiased",
+        fontInter.variable,
+        montserrat.variable
+      )}
       >
+        <Toaster />
         {children}
       </body>
     </html>
