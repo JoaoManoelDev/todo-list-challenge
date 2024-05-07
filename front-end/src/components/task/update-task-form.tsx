@@ -3,7 +3,6 @@
 import { Controller, useForm } from "react-hook-form"
 import { z } from "zod"
 import { zodResolver } from "@hookform/resolvers/zod"
-import { AxiosError } from "axios"
 import { toast } from "sonner"
 
 import { Button } from "@/components/ui/button"
@@ -13,7 +12,7 @@ import { Checkbox } from "@/components/ui/checkbox"
 import { useTaskContext } from "@/contexts/task"
 
 const updateTaskForm = z.object({
-  title: z.string(),
+  title: z.string().min(1, "O título não pode estar vazio."),
   isCompleted: z.boolean()
 })
 
@@ -50,7 +49,7 @@ export const UpdateTaskForm = ({ task }: UpdateTaskFormProps) => {
         taskId: task.id
       })
 
-      toast.success("Tarefa criada com sucesso.")
+      toast.success("Tarefa atualizada com sucesso.")
 
       reset()
     } catch (error) {

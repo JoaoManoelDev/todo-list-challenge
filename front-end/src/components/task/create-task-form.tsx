@@ -11,7 +11,7 @@ import { Input } from "@/components/ui/input"
 import { useTaskContext } from "@/contexts/task"
 
 const createTaskForm = z.object({
-  title: z.string(),
+  title: z.string().min(1, "O título não pode estar vazio."),
 })
 
 type CreateTaskForm = z.infer<typeof createTaskForm>
