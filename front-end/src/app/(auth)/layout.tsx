@@ -1,4 +1,7 @@
+import { cookies } from "next/headers"
+
 import { Icons } from "@/components/icons"
+import { redirect } from "next/navigation"
 
 interface AuthLayoutProps {
   children: React.ReactNode
@@ -7,6 +10,10 @@ interface AuthLayoutProps {
 const AuthLayout = ({
   children
 }: AuthLayoutProps) => {
+  const cookie = cookies().has("@todo:token-auth")
+
+  if (cookie) redirect("/")
+
   return (
     <div className="min-h-screen grid grid-cols-1 lg:grid-cols-2 antialiased">
       <div className="h-full border-r border-foreground/5 bg-muted p-10 text-muted-foreground hidden lg:flex flex-col justify-between">
