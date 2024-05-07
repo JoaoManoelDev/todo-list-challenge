@@ -44,10 +44,7 @@ export const Form = () => {
       })
 
     } catch (error) {
-      console.log("catch error", error instanceof AxiosError)
-
       if (error instanceof AxiosError) {
-        console.log("status error", error.request.status)
         if (error.request.status === 409) toast.error("E-mail já cadastrado.");
         if (error.request.status === 400) toast.error("Dados inválidos. Por favor, verifique os dados informados")
       } else {
