@@ -16,9 +16,9 @@ export class CreateTaskController {
 
       const createTaskUseCase = makeCreateTaskUseCase()
 
-      await createTaskUseCase.execute({ title, userId })
+      const { task } = await createTaskUseCase.execute({ title, userId })
     
-      return response.status(201).end()
+      return response.status(201).json(task)
     } catch (error) {
       return next(error)
     }
