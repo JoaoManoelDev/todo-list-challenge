@@ -30,16 +30,16 @@ export const CreateTaskForm = () => {
   const handleTask = async (data: CreateTaskForm) => {
     try {
       const response = await createTask(data)
-      
+
       toast.success("Tarefa criada com sucesso.")
-      
+
       reset()
     } catch (error) {
       if (error instanceof AxiosError) {
         if (error.response?.status === 401) {
           logOut()
         }
-      } 
+      }
 
       toast.error("Erro ao atualizar tarefa. Por favor, tente novamente mais tarde.")
     }
@@ -50,15 +50,17 @@ export const CreateTaskForm = () => {
       className="absolute max-w-2xl w-full bottom-[-1.2rem] px-4 flex gap-2"
       onSubmit={handleSubmit(handleTask)}
     >
-      <Input
-        {...register("title")}
-        className="w-full"
-      />
+      <div className="flex flex-col w-full">
+        <Input
+          {...register("title")}
+          className="w-full"
+        />
 
-      {errors.title &&
-        <p className="text-sm text-red-500">
-          {errors.title.message}
-        </p>}
+        {errors.title &&
+          <p className="mt-11 max-w-2xl w-full text-sm text-red-500 fixed">
+            {errors.title.message}
+          </p>}
+      </div>
 
       <Button disabled={isSubmitting} type="submit">Criar</Button>
     </form>
