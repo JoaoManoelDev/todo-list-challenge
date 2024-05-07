@@ -4,7 +4,7 @@ import { useForm } from "react-hook-form"
 import { toast } from "sonner"
 import { ZodError, z } from "zod"
 import { zodResolver } from "@hookform/resolvers/zod"
-import { useSearchParams } from "next/navigation"
+import { useRouter, useSearchParams } from "next/navigation"
 import { AxiosError } from "axios"
 
 import { Button } from "@/components/ui/button"
@@ -22,6 +22,7 @@ type SingInForm = z.infer<typeof signInForm>
 
 export const Form = () => {
   const searchParams = useSearchParams()
+  const router = useRouter()
   
   const {
     register,
@@ -43,8 +44,9 @@ export const Form = () => {
         value: response.data.token
       })
 
+      router.push("/")
       toast.success("Bem vindo ao Todo App!.", )
-  
+
     } catch (error) {
       if (error instanceof ZodError) {
 
