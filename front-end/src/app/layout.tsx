@@ -1,9 +1,10 @@
 import type { Metadata } from "next"
+import { Toaster } from "sonner"
 
 import "@/styles/globals.css"
 import { cn } from "@/lib/utils"
 import { fontInter, montserrat } from "@/styles/fonts"
-import { Toaster } from "sonner"
+import { TaskContextProvider } from "@/contexts/task"
 
 export const metadata: Metadata = {
   title: "Todo App",
@@ -24,7 +25,9 @@ const RootLayout = ({
       )}
       >
         <Toaster />
-        {children}
+        <TaskContextProvider>
+          {children}
+        </TaskContextProvider>
       </body>
     </html>
   )
