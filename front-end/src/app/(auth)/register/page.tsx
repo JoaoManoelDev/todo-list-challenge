@@ -16,7 +16,7 @@ const Register = () => {
         </Link>
       </Button>
 
-      <div className="w-[350px] flex flex-col justify-center gap-6">
+      <div className="w-[300px] lg:w-[350px] flex flex-col justify-center gap-6">
         <div className="flex flex-col gap-2 text-center">
           <h1 className="text-2xl font-semibold tracking-tighter">
             Criar conta grátis
