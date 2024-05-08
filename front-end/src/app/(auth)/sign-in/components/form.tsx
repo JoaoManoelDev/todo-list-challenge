@@ -39,17 +39,17 @@ export const Form = () => {
     try {
       const response = await http.post("/auth/sign-in", data)
 
-      setCookie({
-        name: "@todo:token-auth",
-        value: response.data.token
-      })
-
-      router.push("/")
-      toast.success("Bem vindo ao Todo App!.", )
-
+      if (response.status === 200) {
+        setCookie({
+          name: "@todo:token-auth",
+          value: response.data.token
+        })
+        
+        toast.success("Bem vindo ao Todo App!.", )
+        router.push("/")
+      }
     } catch (error) {
       if (error instanceof ZodError) {
-
         toast.error(error.message)
       } 
       
@@ -57,7 +57,7 @@ export const Form = () => {
         if (error.request.status === 409) toast.error("Credenciais inválidas.");
         if (error.request.status === 400) toast.error("Dados inválidos. Por favor, verifique os dados informados")
       } else {
-         toast.error("Erro ao cadastrar usuário. Por favor, tente novamente mais tarde.")
+         toast.error("Erro ao entrar com usuário. Por favor, tente novamente mais tarde.")
       }
     }
   }
