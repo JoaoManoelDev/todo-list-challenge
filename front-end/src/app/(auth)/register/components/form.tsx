@@ -34,14 +34,12 @@ export const Form = () => {
 
   const handleRegister = async (data: RegisterForm) => {
     try {
-      await http.post("/auth/register", data)
+      const response = await http.post("/auth/register", data)
 
-      toast.success("Cadastro finalizado com sucesso.", {
-        action: {
-          label: "Login",
-          onClick: () => router.push(`/sign-in?email=${data.email}`)
-        }
-      })
+      if (response.status === 201) {
+        router.push(`/sign-in?email=${data.email}`)
+        toast.success("Cadastro finalizado com sucesso.")
+      }
 
     } catch (error) {
       if (error instanceof AxiosError) {
