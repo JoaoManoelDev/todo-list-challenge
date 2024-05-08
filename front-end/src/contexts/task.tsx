@@ -9,9 +9,9 @@ import {
 import { deleteCookie } from "cookies-next"
 import { useRouter } from "next/navigation"
 import { AxiosError } from "axios"
-import { toast } from "sonner"
 
 import { http } from "@/lib/axios"
+import { deleteCookie as deleteCookieServer } from "@/actions/deleteCookie"
 
 export interface Task {
   id: string
@@ -35,6 +35,7 @@ interface TaskContextType {
   toggleTaskCompleted: (taskId: string) => Promise<void>
   deleteTask: (taskId: string) => Promise<void>
   logOut: () => Promise<void>
+  getTasks: () => Promise<void>
 }
 
 export const TaskContext = createContext({} as TaskContextType)
@@ -104,35 +105,28 @@ export const TaskContextProvider = ({
 
   const logOut = async () => {
     deleteCookie("@todo:token-auth")
-    
-    router.push("/sign-in")
+    deleteCookieServer({ name: "@todo:token-auth" })    
+    setTasks([])
+    router.refresh()
   }
 
-  useEffect(() => {
-    const getTasks = async () => {
-      try {
-        setIsLoading(true)
-        const response = await http.get("/task")
+  const getTasks = async () => {
+    try {
+      setIsLoading(true)
+      const response = await http.get("/task")
+      
+      setTasks(response.data.tasks)
 
-        if (response) {
-          setTasks(response.data.tasks)
+    } catch(error) {
+      if (error instanceof AxiosError) {
+        if (error.response?.status === 401) {
+          logOut()
         }
-      } catch(error) {
-        if (error instanceof AxiosError) {
-          if (error.response?.status === 401) {
-            logOut()
-          }
-        }
-
-        toast.message("Não foi possível buscar suas tarefas. Por favor, tente novamente mais tarde.")
-
-      }finally {
-        setIsLoading(false)
       }
+    }finally {
+      setIsLoading(false)
     }
-
-    getTasks()
-  }, [])
+  }
 
   return (
     <TaskContext.Provider
@@ -143,7 +137,8 @@ export const TaskContextProvider = ({
         toggleTaskCompleted,
         deleteTask,
         updateTask,
-        logOut
+        logOut,
+        getTasks
       }}
     >
       {children}
