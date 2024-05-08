@@ -8,8 +8,6 @@ export class ToggleTaskCompletedController {
     try {
       const taskId = request.params.id
 
-      console.log("TASK ID", taskId)
-
       const toggleTaskCompletedUseCase = makeToggleTaskCompletedTaskUseCase()
 
       const { task } = await toggleTaskCompletedUseCase.execute({ taskId })
