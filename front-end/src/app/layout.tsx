@@ -5,6 +5,7 @@ import "@/styles/globals.css"
 import { cn } from "@/lib/utils"
 import { fontInter, montserrat } from "@/styles/fonts"
 import { TaskContextProvider } from "@/contexts/task"
+import { ThemeProvider } from "@/theme/provider"
 
 export const metadata: Metadata = {
   title: "Todo App",
@@ -17,17 +18,24 @@ const RootLayout = ({
   children: React.ReactNode
 }>) => {
   return (
-    <html lang="en">
+    <html lang="pt-br" suppressHydrationWarning>
       <body className={cn(
         "min-h-screen font-inter antialiased",
         fontInter.variable,
         montserrat.variable
       )}
       >
-        <Toaster />
-        <TaskContextProvider>
-          {children}
-        </TaskContextProvider>
+        <ThemeProvider
+          attribute="class"
+          defaultTheme="system"
+          enableSystem
+          disableTransitionOnChange
+        >
+          <Toaster />
+          <TaskContextProvider>
+            {children}
+          </TaskContextProvider>
+        </ThemeProvider>
       </body>
     </html>
   )

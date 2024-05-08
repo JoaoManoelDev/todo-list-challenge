@@ -1,8 +1,11 @@
 import {
   CheckCircle2,
   ClipboardList,
+  LogOut,
+  Moon,
   Pencil,
   SquareCheck,
+  Sun,
   Trash,
   X
 } from "lucide-react"
@@ -13,5 +16,8 @@ export const Icons = {
   checkCircle: CheckCircle2,
   trash: Trash,
   pencil: Pencil,
-  x: X
+  x: X,
+  logOut: LogOut,
+  sun: Sun,
+  moon: Moon
 }
