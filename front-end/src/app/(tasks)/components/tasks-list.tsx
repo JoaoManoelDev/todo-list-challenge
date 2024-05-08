@@ -3,6 +3,7 @@
 import { Icons } from "@/components/icons"
 import { Task } from "@/components/task"
 import { useTaskContext } from "@/contexts/task"
+import { useEffect } from "react"
 
 interface Task {
   id: string
@@ -11,7 +12,11 @@ interface Task {
 }
 
 export const TasksList = () => {
-  const { tasks, isLoading } = useTaskContext()
+  const { tasks, isLoading, getTasks } = useTaskContext()
+
+  useEffect(() => {
+    getTasks()
+  }, [])
 
   const totalTasks = tasks.length
   const completedTasks = tasks.filter((task) => task.is_completed).length
