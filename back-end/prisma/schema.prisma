@@ -20,11 +20,12 @@ model User {
 }
 
 model Task {
-  id           String  @id @default(uuid())
+  id           String   @id @default(uuid())
   title        String
-  is_completed Boolean @default(false)
+  is_completed Boolean  @default(false)
   user_id      String
-  user         User    @relation(fields: [user_id], references: [id])
+  user         User     @relation(fields: [user_id], references: [id])
+  created_at   DateTime @default(now())
 
   @@map("tasks")
 }
