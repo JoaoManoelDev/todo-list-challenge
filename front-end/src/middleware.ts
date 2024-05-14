@@ -1,12 +1,13 @@
-import { cookies } from "next/headers"
 import { NextRequest, NextResponse } from "next/server"
 
 export function middleware(request: NextRequest) {
-  const cookie = cookies().has("@todo:token-auth")
+  const token = request.cookies.get("@todo:token-auth")?.value
 
-  if (!cookie) {
+  if (!token) {
     return NextResponse.redirect(new URL('/sign-in', request.url))
   }
+
+  return NextResponse.next()
 }
 
 export const config = {
