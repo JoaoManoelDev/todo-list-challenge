@@ -13,7 +13,10 @@ export const toggleTaskCompleted = async (taskId: string) => {
 
   console.log("[ACTION TOGGLE TASK COMPLETED TASK]", response)
 
-  if (response.status === 200) revalidatePath("/")
+  if (response.status === 200) {
+    revalidatePath("/")
+    return
+  }
 
   if (response.status === 409) {
     return { error: "Tarefa não encontrada." }
