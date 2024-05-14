@@ -15,7 +15,10 @@ export class PrismaTasksRepository implements TasksRepository {
   async findManyByUserId(userId: string) {
     const tasks = await prisma.task.findMany({
       where: {
-        user_id: userId
+        user_id: userId,
+      },
+      orderBy: {
+        created_at: "desc"
       }
     })
 
