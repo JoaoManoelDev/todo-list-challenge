@@ -1,14 +1,13 @@
 "use client"
 
-import { useForm } from "react-hook-form"
-import { z } from "zod"
-import { zodResolver } from "@hookform/resolvers/zod"
-import { AxiosError } from "axios"
 import { toast } from "sonner"
+import { z } from "zod"
+import { useForm } from "react-hook-form"
+import { zodResolver } from "@hookform/resolvers/zod"
 
 import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
-import { useTaskContext } from "@/contexts/task"
+import { createTask } from "@/actions/create-task"
 
 const createTaskForm = z.object({
   title: z.string().min(1, "O título não pode estar vazio."),
@@ -17,7 +16,6 @@ const createTaskForm = z.object({
 type CreateTaskForm = z.infer<typeof createTaskForm>
 
 export const CreateTaskForm = () => {
-  const { createTask, logOut } = useTaskContext()
   const {
     register,
     handleSubmit,
@@ -28,20 +26,16 @@ export const CreateTaskForm = () => {
   })
 
   const handleTask = async (data: CreateTaskForm) => {
-    try {
-      const response = await createTask(data)
+    const response = await createTask(data.title)
 
-      toast.success("Tarefa criada com sucesso.")
-
+    if (response?.success) {
+      toast.success(response?.success)
       reset()
-    } catch (error) {
-      if (error instanceof AxiosError) {
-        if (error.response?.status === 401) {
-          logOut()
-        }
-      }
+      return
+    }
 
-      toast.error("Erro ao atualizar tarefa. Por favor, tente novamente mais tarde.")
+    if (response.error) {
+      toast.error(response?.error)
     }
   }
 
