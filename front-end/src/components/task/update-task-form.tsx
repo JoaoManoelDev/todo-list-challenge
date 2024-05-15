@@ -9,7 +9,7 @@ import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
 import { Label } from "@/components/ui/label"
 import { Checkbox } from "@/components/ui/checkbox"
-import { useTaskContext } from "@/contexts/task"
+import { updateTask } from "@/actions/update-task"
 
 const updateTaskForm = z.object({
   title: z.string().min(1, "O título não pode estar vazio."),
@@ -27,7 +27,6 @@ interface UpdateTaskFormProps {
 }
 
 export const UpdateTaskForm = ({ task }: UpdateTaskFormProps) => {
-  const { updateTask } = useTaskContext()
   const {
     register,
     handleSubmit,
@@ -43,17 +42,18 @@ export const UpdateTaskForm = ({ task }: UpdateTaskFormProps) => {
   })
 
   const handleTaskForm = async (taskUpdate: UpdateTaskForm) => {
-    try {
-      await updateTask({
-        task: taskUpdate,
-        taskId: task.id
-      })
+    const response = await updateTask({
+      task: taskUpdate,
+      taskId: task.id
+    })
 
-      toast.success("Tarefa atualizada com sucesso.")
+    if (response?.success) {
+      toast.success(response?.success)
+      return
+    }
 
-      reset()
-    } catch (error) {
-      toast.error("Erro ao atualizar tarefa. Por favor, tente novamente mais tarde.")
+    if (response.error) {
+      toast.error(response?.error)
     }
   }
 
