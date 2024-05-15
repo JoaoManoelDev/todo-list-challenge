@@ -4,7 +4,6 @@ import { Toaster } from "sonner"
 import "@/styles/globals.css"
 import { cn } from "@/lib/utils"
 import { fontInter, montserrat } from "@/styles/fonts"
-import { TaskContextProvider } from "@/contexts/task"
 import { ThemeProvider } from "@/theme/provider"
 
 export const metadata: Metadata = {
@@ -32,9 +31,7 @@ const RootLayout = ({
           disableTransitionOnChange
         >
           <Toaster />
-          <TaskContextProvider>
-            {children}
-          </TaskContextProvider>
+          {children}
         </ThemeProvider>
       </body>
     </html>
