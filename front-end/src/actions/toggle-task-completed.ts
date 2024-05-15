@@ -10,8 +10,6 @@ export const toggleTaskCompleted = async (taskId: string) => {
     method: "PATCH",
   })
 
-  console.log("[ACTION TOGGLE TASK COMPLETED TASK]", response)
-
   if (response.status === 200) {
     revalidatePath("/")
     return

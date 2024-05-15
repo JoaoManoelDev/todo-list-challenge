@@ -10,8 +10,6 @@ export const deleteTask = async (taskId: string) => {
     method: "DELETE",
   })
 
-  console.log("[ACTION DELETE TASK]", response)
-
   if (response.status === 204) {
     revalidatePath("/")
     return { success: "Tarefa deletada com sucesso" }
