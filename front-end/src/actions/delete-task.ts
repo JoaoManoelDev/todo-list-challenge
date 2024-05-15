@@ -1,10 +1,9 @@
 "use server"
 
 import { revalidatePath } from "next/cache"
-import { cookies } from "next/headers"
-import { redirect } from "next/navigation"
 
 import { api } from "@/data/api"
+import { logOut } from "@/actions/log-out"
 
 export const deleteTask = async (taskId: string) => {
   const response = await api(`/task/${taskId}`, {
@@ -23,8 +22,7 @@ export const deleteTask = async (taskId: string) => {
   }
   
   if (response.status === 401) {
-    cookies().delete("@todo:token-auth")
-    redirect("/sign-in")
+    logOut()
   }
 
   return { error: "Algo deu errado, tente novamente mais tarde." }
