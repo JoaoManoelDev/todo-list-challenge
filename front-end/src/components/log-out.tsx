@@ -2,13 +2,13 @@
 
 import { Button } from "@/components/ui/button"
 import { Icons } from "@/components/icons"
-import { useTaskContext } from "@/contexts/task"
+import { logOut } from "@/actions/log-out"
+
+const handleLogOut = () => logOut()
 
 export const LogOut = () => {
-  const { logOut } = useTaskContext()
-
   return (
-    <Button className="gap-1" onClick={() => logOut()}>
+    <Button onClick={handleLogOut} className="gap-1">
       <span>sair</span>
       <Icons.logOut className="w-3 h-3" />
     </Button>
