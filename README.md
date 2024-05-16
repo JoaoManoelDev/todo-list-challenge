@@ -6,7 +6,37 @@
 
 ## Desafio técnico
 
-### Pré-requisitos
+### Tarefa Backend:
+
+- [x] Criar um novo usuário.
+- [x] Efetuar autenticação jwt com este usuário e receber um token (Login).
+- [x] Adicionar uma nova tarefa na to-do list (Rota protegida com autenticação).
+- [x] Listar todas as tarefas da to-do list  (Rota protegida com autenticação).
+- [x] Atualizar uma tarefa existente na to-do list  (Rota protegida com autenticação).
+- [x] Excluir uma tarefa na to-do list  (Rota protegida com autenticação).
+
+### Requisitos técnicos do backend:
+- [x] Implementar as rotas usando Express/NestJS.
+- [x] Armazenar as tarefas em um banco de dados (sqlite, mysql ou postgresql).
+- [x] Escrever testes básicos para as funcionalidades implementadas.
+
+### Tarefa Frontend:
+
+- [x] Registrar um novo usuário: Um formulário para inserção de nome de usuário e senha, com botão para submeter os dados e criar o usuário na base de dados através da API.
+- [x] Login: Um formulário onde o usuário possa inserir seu nome de usuário e senha, e ao submeter, receba um token JWT retornado pela API e armazene este token localmente para futuras requisições autenticadas.
+- [x] Adicionar uma nova tarefa: Uma interface que permita inserir o título e descrição da tarefa. Esta operação deve ser protegida, exigindo que o usuário esteja autenticado.
+- [x] Listar todas as tarefas: Uma página onde todas as tarefas do usuário logado sejam listadas. Esta operação deve ser protegida.
+- [x] Atualizar uma tarefa existente: Opções para editar o título e descrição de uma tarefa já criada. Esta operação também deve ser protegida.
+- [x] Excluir uma tarefa: Botões para deletar tarefas individuais, com uma confirmação antes de realizar a operação. Esta ação deve ser protegida.
+
+### Requisitos técnicos do frontend:
+- [x] Implementar a aplicação usando React.js ou NextJS.
+- [x] Gerenciar o estado da aplicação de forma eficiente, utilizando Context API ou Redux.
+- [x] Uso de Axios ou Fetch API para chamadas HTTP.
+- [x] Implementar autenticação no cliente para manter o usuário logado e enviar o token JWT em requisições autenticadas.
+- [x] Aplicar estilos de forma consistente e responsiva usando CSS puro, SASS ou frameworks CSS como TailwindCSS ou Bootstrap.
+
+### Pré-requisitos para rodar o projeto
 
 Antes de começar, você vai precisar ter instalado em sua máquina as seguintes ferramentas: Git, NodeJS e Docker/Docker-compose.
 
