@@ -1,5 +1,9 @@
 # Todo List Challenge
 
+<p align="center">
+   <img alt = "Web app" src = "./.github/images/home.png" width="800px" />
+</p>
+
 ## Desafio técnico
 
 ### Pré-requisitos
