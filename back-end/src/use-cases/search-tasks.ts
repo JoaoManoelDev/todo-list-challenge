@@ -13,7 +13,7 @@ interface SearchTasksUseCaseResponse {
 export class SearchTasksUseCase {
   constructor(
     private tasksRepository: TasksRepository
-  ) {}
+  ) { }
 
   async execute({
     userId

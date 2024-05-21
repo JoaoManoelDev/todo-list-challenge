@@ -1,7 +1,7 @@
 import { beforeEach, describe, expect, it } from "vitest"
 
 import { InMemoryTasksRepository } from "@/repositories/in-memory/in-memory-tasks-repository"
-import { SearchTasksUseCase } from "./search-tasks"
+import { SearchTasksUseCase } from "@/use-cases/search-tasks"
 
 let tasksRepository: InMemoryTasksRepository
 let sut: SearchTasksUseCase
@@ -30,7 +30,6 @@ describe("Search Tasks Use Case", () => {
     expect(tasks).toEqual([
       expect.objectContaining({ title: "Learning Node Js" }),
       expect.objectContaining({ title: "Learning React Js" }),
-
     ])
   })
 })

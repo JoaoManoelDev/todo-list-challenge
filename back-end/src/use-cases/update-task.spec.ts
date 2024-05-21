@@ -1,8 +1,8 @@
 import { beforeEach, describe, expect, it } from "vitest"
 
 import { InMemoryTasksRepository } from "@/repositories/in-memory/in-memory-tasks-repository"
-import { ResourceNotFoundError } from "./errors/resource-not-found-error"
-import { UpdateTaskUseCase } from "./update-task"
+import { ResourceNotFoundError } from "@/use-cases/errors/resource-not-found-error"
+import { UpdateTaskUseCase } from "@/use-cases/update-task"
 
 let tasksRepository: InMemoryTasksRepository
 let sut: UpdateTaskUseCase
@@ -31,7 +31,7 @@ describe("Update Task Use Case", () => {
     expect(task).toMatchObject({ title: "Updated task", is_completed: true })
   })
 
-  it("should not be able to update task with wrong id", async () => {
+  it("Should not be able to update task with an id that doesn't exist", async () => {
     await expect(() => sut.execute({
       taskId: "non-exists-task-id",
       taskUpdate: {

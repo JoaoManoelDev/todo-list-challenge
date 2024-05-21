@@ -14,7 +14,7 @@ interface CreateTaskUseCaseResponse {
 export class CreateTaskUseCase {
   constructor(
     private tasksRepository: TasksRepository
-  ) {}
+  ) { }
 
   async execute({
     title,
@@ -24,7 +24,7 @@ export class CreateTaskUseCase {
       title,
       user_id: userId
     })
-    
+
     return { task }
   }
 }

@@ -1,7 +1,7 @@
 import { User } from "@prisma/client"
 
 import { UsersRepository } from "@/repositories/users-repository"
-import { InvalidCredentialsError } from "./errors/invalid-credentials-error"
+import { InvalidCredentialsError } from "@/use-cases/errors/invalid-credentials-error"
 import { comparePassword } from "@/lib/hash"
 
 interface AuthenticateUseCaseRequest {
@@ -16,7 +16,7 @@ interface AuthenticateUseCaseResponse {
 export class AuthenticateUseCase {
   constructor(
     private usersRepository: UsersRepository
-  ) {}
+  ) { }
 
   async execute({
     email,

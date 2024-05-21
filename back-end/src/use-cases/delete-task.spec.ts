@@ -1,8 +1,8 @@
 import { beforeEach, describe, expect, it } from "vitest"
 
 import { InMemoryTasksRepository } from "@/repositories/in-memory/in-memory-tasks-repository"
-import { DeleteTaskUseCase } from "./delete-task"
-import { ResourceNotFoundError } from "./errors/resource-not-found-error"
+import { DeleteTaskUseCase } from "@/use-cases/delete-task"
+import { ResourceNotFoundError } from "@/use-cases/errors/resource-not-found-error"
 
 let tasksRepository: InMemoryTasksRepository
 let sut: DeleteTaskUseCase
@@ -17,7 +17,7 @@ describe("Delete Task Use Case", () => {
     await tasksRepository.create({
       id: "task-01",
       title: "Learning Node Js",
-      user_id: "1"
+      user_id: "1",
     })
 
     await tasksRepository.create({
@@ -36,7 +36,7 @@ describe("Delete Task Use Case", () => {
     ])
   })
 
-  it("should not be able to delete task with wrong id", async () => {
+  it("Should not be able to update task with an id that doesn't exist", async () => {
     await expect(() => sut.execute({
       taskId: "non-existing-task-id"
     })).rejects.toBeInstanceOf(ResourceNotFoundError)

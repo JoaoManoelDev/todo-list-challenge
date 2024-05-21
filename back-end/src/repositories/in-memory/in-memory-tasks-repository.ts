@@ -11,7 +11,8 @@ export class InMemoryTasksRepository implements TasksRepository {
       id: task.id ?? randomUUID(),
       title: task.title,
       is_completed: false,
-      user_id: task.user_id
+      user_id: task.user_id,
+      created_at: new Date(),
     }
 
     this.tasks.push(newTask)

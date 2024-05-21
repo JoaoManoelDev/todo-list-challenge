@@ -1,7 +1,7 @@
 import { beforeEach, describe, expect, it } from "vitest"
 
-import { RegisterUseCase } from "./register"
-import { UserAlreadyExistsError } from "./errors/user-already-exists-error"
+import { RegisterUseCase } from "@/use-cases/register"
+import { UserAlreadyExistsError } from "@/use-cases/errors/user-already-exists-error"
 import { comparePassword } from "@/lib/hash"
 import {
   InMemoryUsersRepository
@@ -41,7 +41,7 @@ describe("Register Use Case", () => {
     expect(isPasswordCorrectlyHashed).toBe(true)
   })
 
-  it("should not be able to register with same email twice", async () => {
+  it("should not be able to create user with the email already in use", async () => {
     const email = "johndoe@email.com"
 
     await sut.execute({

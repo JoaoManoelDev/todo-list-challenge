@@ -1,5 +1,5 @@
 import { TasksRepository } from "@/repositories/tasks-repository"
-import { ResourceNotFoundError } from "./errors/resource-not-found-error"
+import { ResourceNotFoundError } from "@/use-cases/errors/resource-not-found-error"
 
 interface DeleteTaskUseCaseRequest {
   taskId: string
@@ -8,7 +8,7 @@ interface DeleteTaskUseCaseRequest {
 export class DeleteTaskUseCase {
   constructor(
     private tasksRepository: TasksRepository
-  ) {}
+  ) { }
 
   async execute({
     taskId
